@@ -1,0 +1,27 @@
+{
+    "meta": {
+        "code": 200,
+        "name": "xcode 4.5.1"
+    },
+    "response": {
+        "venues": [
+               {
+               "id": "4f482132e4b0f85d07c34cb5",
+               "name": "De Anza 3 Coffee Bar",
+               "contact": {}
+               },
+               {
+               "id": "4f482132e4b0f85d07c34cb5",
+               "name": "De Anza 3 Coffee Bar",
+               "contact": {}
+               },
+               {
+               "id": "4f482132e4b0f85d07c34cb5",
+               "name": "De Anza 3 Coffee Bar",
+               "contact": {}
+               }
+        ],
+        "cities":["上海", "北京", "天津", "广州"],
+        "Icon":[32,64,128]
+    }
+}
