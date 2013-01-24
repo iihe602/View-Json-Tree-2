@@ -10,28 +10,40 @@
 
 @implementation JsonArray
 {
-    NSArray *_array;
     NSString *_key;
+    id _value;
 }
 
--(JsonArray *)initWithArray:(NSArray *) array andKey:(NSString *)key
+-(id) key
+{
+    return [_key description];
+}
+
+-(id) value
+{
+    return _value;
+}
+
+-(id) detailText
+{
+    return NULL;
+}
+
+-(JsonObjectTypes) checkValueType
+{
+    return Array;
+}
+
+-(id)initWithArray:(NSArray *)array andKey:(NSString *)key
 {
     self = [super init];
     if (self) {
-        _array = array;
         _key = key;
+        _value = array;
     }
-    return self;
+    
+    return self;    
 }
 
--(NSString *) displayTextAtIndex:(NSUInteger)index
-{
-    return [NSString stringWithFormat:@"%d of %@", index, _key];
-}
-
--(id) objectAtIndex:(NSUInteger)index
-{
-    return _array[index];
-}
 
 @end

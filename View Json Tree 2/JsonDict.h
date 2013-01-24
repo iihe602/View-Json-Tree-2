@@ -11,10 +11,12 @@
 
 @interface JsonDict : NSObject<JsonDelegate>
 
--(NSString *) displayTextAtIndex:(NSUInteger)index;
+-(id) key;
+-(id) value;
+-(id) detailText;
 
--(id) objectAtIndex:(NSUInteger)index;
+-(JsonObjectTypes) checkValueType;
 
--(JsonDict *)initWithObject:(NSDictionary *)dict;
+-(id)initWithKey:(id) key andValue:(id) value;
 
 @end

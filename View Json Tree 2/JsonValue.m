@@ -14,7 +14,27 @@
     NSString *_value;
 }
 
--(JsonValue *)initWithKey:(NSString *)key Value:(id)value
+-(id) key
+{
+    return [_key description];
+}
+
+-(id) value
+{
+    return _value;
+}
+
+-(id) detailText
+{
+    return [_value description];
+}
+
+-(JsonObjectTypes) checkValueType
+{
+    return Value;
+}
+
+-(id)initWithKey:(id)key andValue:(id)value
 {
     self = [super init];
     if (self) {
@@ -23,16 +43,6 @@
     }
     
     return self;
-}
-
--(NSString *) displayTextAtIndex:(NSUInteger)index
-{
-    return _key;
-}
-
--(id) objectAtIndex:(NSUInteger)index
-{
-    return _value;
 }
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		801841FF16AFDA4500F8F9A0 /* MyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 801841FE16AFDA4500F8F9A0 /* MyCell.m */; };
 		80770C1016AD74BD006C4784 /* JsonArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 80770C0F16AD74BD006C4784 /* JsonArray.m */; };
 		80770C1316AD74CB006C4784 /* JsonDict.m in Sources */ = {isa = PBXBuildFile; fileRef = 80770C1216AD74CB006C4784 /* JsonDict.m */; };
 		80770C1616AD74E3006C4784 /* JsonValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 80770C1516AD74E3006C4784 /* JsonValue.m */; };
@@ -26,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		801841FD16AFDA4500F8F9A0 /* MyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCell.h; sourceTree = "<group>"; };
+		801841FE16AFDA4500F8F9A0 /* MyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCell.m; sourceTree = "<group>"; };
 		80770C0C16AD74A6006C4784 /* JsonDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JsonDelegate.h; sourceTree = "<group>"; };
 		80770C0E16AD74BD006C4784 /* JsonArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonArray.h; sourceTree = "<group>"; };
 		80770C0F16AD74BD006C4784 /* JsonArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonArray.m; sourceTree = "<group>"; };
@@ -52,6 +55,7 @@
 		807FC0BF16AD32AE00E3D897 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		807FC0C016AD32AE00E3D897 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		807FC0C716AD32F700E3D897 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
+		80FFE4EE16B0236B00F4028E /* JsonObjectTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JsonObjectTypes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +118,9 @@
 				807FC0BF16AD32AE00E3D897 /* DetailViewController.h */,
 				807FC0C016AD32AE00E3D897 /* DetailViewController.m */,
 				807FC0A816AD32AE00E3D897 /* Supporting Files */,
+				801841FD16AFDA4500F8F9A0 /* MyCell.h */,
+				801841FE16AFDA4500F8F9A0 /* MyCell.m */,
+				80FFE4EE16B0236B00F4028E /* JsonObjectTypes.h */,
 			);
 			path = "View Json Tree 2";
 			sourceTree = "<group>";
@@ -206,6 +213,7 @@
 				80770C1016AD74BD006C4784 /* JsonArray.m in Sources */,
 				80770C1316AD74CB006C4784 /* JsonDict.m in Sources */,
 				80770C1616AD74E3006C4784 /* JsonValue.m in Sources */,
+				801841FF16AFDA4500F8F9A0 /* MyCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

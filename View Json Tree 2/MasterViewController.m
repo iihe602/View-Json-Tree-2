@@ -9,6 +9,12 @@
 #import "MasterViewController.h"
 
 #import "DetailViewController.h"
+#import "MyCell.h"
+#import "JsonArray.h"
+#import "JsonDict.h"
+#import "JsonValue.h"
+
+#import "JsonObjectTypes.h"
 
 #define CellIdentifier @"Cell"
 
@@ -98,62 +104,68 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-
-    cell.detailTextLabel.text = @"";
+    MyCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    __block id<JsonDelegate> delegate = NULL;
     
     [self processJsonObject:_obj atIndex:indexPath.row DictionaryObjectUsingBlock:^(id key, id value)
     {
-        cell.textLabel.text = key;
         [self testJsonObject:value DictionaryObjectUsingBlock:^() {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            delegate = [[JsonDict alloc] initWithKey:key andValue:value];
         } ArrayObjectUsingBlock:^() {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            delegate = [[JsonArray alloc] initWithArray:value andKey:key];
         } valueUsingBlock:^() {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.detailTextLabel.text = [value description];
+            delegate = [[JsonValue alloc] initWithKey:key andValue:value];
         }];
+
     } ArrayObjectUsingBlock:^(id value) {
         [self testJsonObject:value DictionaryObjectUsingBlock:^() {
-            cell.textLabel.text = [NSString stringWithFormat:@"%d of %@", indexPath.row + 1, self.title];
+            id key = [NSString stringWithFormat:@"%d of %@", indexPath.row + 1, self.title];
+            delegate = [[JsonDict alloc] initWithKey:key andValue:value];
         } ArrayObjectUsingBlock:^() {
-            cell.textLabel.text = [NSString stringWithFormat:@"%d of %@", indexPath.row + 1, self.title];
+            id key = [NSString stringWithFormat:@"%d of %@", indexPath.row + 1, self.title];
+            delegate = [[JsonArray alloc] initWithArray:key andKey:value];
         } valueUsingBlock:^(){
-            cell.textLabel.text = [value description];
-            cell.accessoryType = UITableViewCellAccessoryNone;
+            delegate = [[JsonValue alloc] initWithKey:value andValue:nil];
         }];
     } valueUsingBlock:^(id value){
         
     }];
     
+    cell.delegate = delegate;
+    cell.textLabel.text = [delegate key];
+    cell.detailTextLabel.text = [delegate detailText];
+    
+    if (delegate) {
+        switch ([delegate checkValueType]) {
+            case Dictionary:
+            case Array:
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                break;
+                
+            default:
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                break;
+        }
+    }
+    else
+    {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+
     return cell;
 }
 
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    __block NSIndexPath *result2 = indexPath;
+    MyCell *cell = (MyCell *)[tableView cellForRowAtIndexPath:indexPath];
     
-    [self processJsonObject:_obj atIndex:indexPath.row DictionaryObjectUsingBlock:^(id key, id value) {
-        [self testJsonObject:value DictionaryObjectUsingBlock:^() {
+    if ([cell.delegate checkValueType] == Value) {
+        return nil;
+    }
+    else
+        return indexPath;
 
-        } ArrayObjectUsingBlock:^() {
-            
-        } valueUsingBlock:^() {
-            result2 = nil;
-        }];
-    } ArrayObjectUsingBlock:^(id value) {
-        [self testJsonObject:value DictionaryObjectUsingBlock:^() {
-            
-        } ArrayObjectUsingBlock:^() {
-            
-        } valueUsingBlock:^() {
-            result2 = nil;
-        }];
-    } valueUsingBlock:^(id value) {
-        
-    }];
-    
-    return result2;
 }
 
 -(MasterViewController *)prepareForChild:(id)obj title:(NSString *) title
@@ -167,31 +179,13 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{    
-    NSLog(@"============================================\n");
+{
+    MasterViewController *mvc = NULL;
     
-    __block MasterViewController *mvc = NULL;
+    MyCell *cell = (MyCell *)[tableView cellForRowAtIndexPath:indexPath];
     
-    [self processJsonObject:_obj atIndex:indexPath.row DictionaryObjectUsingBlock:^(id key, id value) {
-        [self testJsonObject:value DictionaryObjectUsingBlock:^() {
-            mvc = [self prepareForChild:value title:key];
-        } ArrayObjectUsingBlock:^() {
-            mvc = [self prepareForChild:value title:key];
-        } valueUsingBlock:^() {
-            
-        }];
-    } ArrayObjectUsingBlock:^(id value) {
-        [self testJsonObject:value DictionaryObjectUsingBlock:^() {
-            mvc = [self prepareForChild:value title:[NSString stringWithFormat:@"%d of %@", indexPath.row + 1, self.title]];
-        } ArrayObjectUsingBlock:^() {
-            ;//this wany is impossible
-        } valueUsingBlock:^() {
-            mvc = [self prepareForChild:value title:@""];
-        }];
-    } valueUsingBlock:^(id value) {
+    mvc = [self prepareForChild:[cell.delegate value] title:[cell.delegate key]];
         
-    }];
-    
     if (mvc) {
         [self.navigationController pushViewController:mvc animated:YES];
     }

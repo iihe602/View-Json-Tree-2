@@ -7,11 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JsonObjectTypes.h"
 
 @protocol JsonDelegate <NSObject>
 
--(NSString *) displayTextAtIndex:(NSUInteger)index;
+-(id) key;
+-(id) value;
+-(id) detailText;
 
--(id) objectAtIndex:(NSUInteger)index;
+-(JsonObjectTypes) checkValueType;
 
 @end
+
+//enum JsonObjects
+//{
+//    DICTIONARY, ARRAY, VALUE
+//}

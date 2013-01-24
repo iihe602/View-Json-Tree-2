@@ -10,27 +10,40 @@
 
 @implementation JsonDict
 {
-    NSDictionary *_dict;
+    NSString *_key;
+    id _value;
 }
 
--(JsonDict *)initWithObject:(NSDictionary *)dict
+-(id) key
+{
+    return [_key description];
+}
+
+-(id) value
+{
+    return _value;
+}
+
+-(id) detailText
+{
+    return NULL;
+}
+
+-(JsonObjectTypes) checkValueType
+{
+    return Dictionary;
+}
+
+-(id)initWithKey:(id) key andValue:(id) value
 {
     self = [super init];
     if (self) {
-        _dict = dict;
+        _key = key;
+        _value = value;
     }
     
     return self;
 }
 
--(NSString *) displayTextAtIndex:(NSUInteger)index
-{
-    return _dict.allKeys[index];
-}
-
--(id) objectAtIndex:(NSUInteger)index
-{
-    return _dict.allValues[index];
-}
 
 @end
